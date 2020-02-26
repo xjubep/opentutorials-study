@@ -5,35 +5,7 @@
     <title>WEB - JavaScript</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
-    <script>
-        function setColor(color) {
-            var links = document.querySelectorAll('a');
-            for (var i = 0; i < links.length; i++) {
-                links[i].style.color = color;
-            }    
-        }
-        function nightDayHandler(self) {
-            var targetBody = document.querySelector('body');
-            var targetInput = document.querySelector('input');
-            var links = document.querySelectorAll('a');
-            if (self.value === 'night') {
-                targetBody.style.backgroundColor = '#303030';
-                targetBody.style.color = 'white';
-                targetInput.style.backgroundColor = '#424242';
-                targetInput.style.color = 'white';
-                setColor('white');
-                self.value = 'day';
-            }
-            else {
-                targetBody.style.backgroundColor = '#FAFAFA';
-                targetBody.style.color = 'black';
-                targetInput.style.backgroundColor = '#FFFFFF';
-                targetInput.style.color = 'black';
-                setColor('black');
-                self.value = 'night';
-            }
-        }
-    </script>
+    <script src="colors.js"></script>
 </head>
 
 <body>
