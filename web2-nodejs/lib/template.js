@@ -1,5 +1,5 @@
 module.exports = {
-    html:function(title, list, body, control) {
+    html:function(title, list, description, control) {
         return `
         <!DOCTYPE html>
         <html>
@@ -53,11 +53,11 @@ module.exports = {
                     padding:20px;
                 }
                 
-                #btn {
+                .btn {
                     border: 1px #F0F0F0;
                     padding:5px;
                     border-radius:5px;
-                    width:45px;
+                    width:55px;
                     background-color: #F0F0F0;
                     font-weight: bold;
                 }
@@ -67,6 +67,24 @@ module.exports = {
                     display:block;
                     margin-left:auto;
                     margin-right: auto;
+                }
+
+                textarea {
+                    width: 600px;
+                    height: 300px;
+                }
+                
+                form {
+                    display: inline;
+                }
+
+                #control {
+                    padding: 5px;
+                    text-align: right; 
+                }
+
+                .title {
+                    width: 600px;
                 }
                 
                 @media(max-width: 800px) {
@@ -83,6 +101,14 @@ module.exports = {
                     }
                 
                     img  {
+                        width: 100%;
+                    }
+
+                    textarea {
+                        width: 100%;
+                    }
+
+                    .title {
                         width: 100%;
                     }
                 }
@@ -144,11 +170,14 @@ module.exports = {
             <h1><a href="/">WEB</a></h1>
             <div id="grid">
                 ${list}
-                ${control}
-                ${body}
+                <div id="article">
+                    ${control}
+                    <h2>${title}</h2>
+                    ${description}
+                </div>
             </div>
             <div id="toggle">
-                <input id="btn" type="button" value="night" onclick="nightDayHandler(this);">
+                <input class="btn" type="button" value="night" onclick="nightDayHandler(this);">
             </div>
         </body>
     

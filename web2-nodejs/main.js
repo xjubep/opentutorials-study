@@ -17,9 +17,12 @@ var app = http.createServer(function (request, response) {
                 var title = 'Welcome';
                 var description = 'Hello, Node.js';
                 var list = template.list(title, filelist);
-                var html = template.html(title, list,
-                    `<div id="article"><h2>${title}</h2>${description}</div>`,
-                    `<a href="/create">create</a>`
+                var html = template.html(title, list, description,
+                    `
+                    <div id="control">
+                        <input type="button" class="btn" value="create" onclick="location.href='/create'";>
+                    </div>
+                    `
                 );
                 response.writeHead(200);
                 response.end(html);
@@ -35,17 +38,16 @@ var app = http.createServer(function (request, response) {
                         allowedTags:['h1']
                     });
                     var list = template.list(sanitizedTitle, filelist);
-                    var html = template.html(sanitizedTitle, list,
+                    var html = template.html(sanitizedTitle, list, sanitizedDescription,
                         `
-                        <div id="article"><h2>${sanitizedTitle}</h2>${sanitizedDescription}</div>
-                        `,
-                        `
-                        <a href="/create">create</a> 
-                        <a href="/update?id=${sanitizedTitle}"}>update</a>
-                        <form action="delete_process" method="post">
-                            <input type="hidden" name="id" value="${sanitizedTitle}">
-                            <input type="submit" value="delete">
-                        </form>
+                        <div id="control">
+                            <input type="button" class="btn" value="create" onclick="location.href='/create'";>
+                            <input type="button" class="btn" value="update" onclick="location.href='/update?id=${sanitizedTitle}'";>
+                            <form action="delete_process" method="post">
+                                <input type="hidden" name="id" value="${sanitizedTitle}">
+                                <input class="btn" type="submit" value="delete">
+                            </form>
+                        </div>
                         `
                     );
                     response.writeHead(200);
@@ -60,15 +62,15 @@ var app = http.createServer(function (request, response) {
             var list = template.list(title, filelist);
             var html = template.html(title, list, `
             <form action="/create_process" method="post">
-                <p><input type="text" name="title" placeholder="title"></p>
+                <p><input type="text" class="title" name="title" placeholder="title"></p>
                 <p>
                     <textarea name="description" placeholder="description"></textarea>
                 </p>
-                <p>
+                <p align="center">
                     <input type="submit">
                 </p>
             </form>
-            `);
+            `, ' ');
 
             response.writeHead(200);
             response.end(html);
@@ -88,7 +90,7 @@ var app = http.createServer(function (request, response) {
             var title = post.title;
             var description = post.description;
 
-            fs.writeFileSync(`data/${title}`, description, 'utf8', function (err) {
+            fs.writeFileSync(`./data/${title}`, description, 'utf8', function (err) {
                 response.writeHead(302, { 'Location': `/?id=${title}` });
                 response.end();
             });
@@ -108,12 +110,17 @@ var app = http.createServer(function (request, response) {
                         <p>
                             <textarea name="description" placeholder="description" value="${description}"></textarea>
                         </p>
-                        <p>
+                        <p align="center">
                             <input type="submit">
                         </p>
                     </form>
                     `,
-                    `<a href="/create">create</a> <a href="/update?id=${title}"}>update</a>`
+                    `
+                    <div id="control">
+                        <input type="button" class="btn" value="create" onclick="location.href='/create'";>
+                        <input type="button" class="btn" value="update" onclick="location.href='/update?id=${title}'";>
+                    </div>
+                    `
                 );
                 response.writeHead(200);
                 response.end(html);
