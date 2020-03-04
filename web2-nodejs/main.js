@@ -3,9 +3,8 @@ var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
 var path = require('path');
-
 var template = require('./lib/template.js');
-//var colors = require('./lib/colors.js');
+var sanitizeHtml = require('sanitize-html');
 
 var app = http.createServer(function (request, response) {
     var _url = request.url;
@@ -31,16 +30,20 @@ var app = http.createServer(function (request, response) {
                 var filteredId = path.parse(queryData.id).base;
                 fs.readFile(`data/${filteredId}`, 'utf8', function (err, description) {
                     var title = filteredId;
-                    var list = template.list(title, filelist);
-                    var html = template.html(title, list,
+                    var sanitizedTitle = sanitizeHtml(title);
+                    var sanitizedDescription = sanitizeHtml(description, {
+                        allowedTags:['h1']
+                    });
+                    var list = template.list(sanitizedTitle, filelist);
+                    var html = template.html(sanitizedTitle, list,
                         `
-                        <div id="article"><h2>${title}</h2>${description}</div>
+                        <div id="article"><h2>${sanitizedTitle}</h2>${sanitizedDescription}</div>
                         `,
                         `
                         <a href="/create">create</a> 
-                        <a href="/update?id=${title}"}>update</a>
+                        <a href="/update?id=${sanitizedTitle}"}>update</a>
                         <form action="delete_process" method="post">
-                            <input type="hidden" name="id" value="${title}">
+                            <input type="hidden" name="id" value="${sanitizedTitle}">
                             <input type="submit" value="delete">
                         </form>
                         `

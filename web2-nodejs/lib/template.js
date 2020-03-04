@@ -22,7 +22,7 @@ module.exports = {
                     padding: 20px;
                 }
                 
-                ol {
+                ul {
                     border-right: 1px solid gray;
                     width: 100px;
                     margin: 0;
@@ -44,7 +44,7 @@ module.exports = {
                     padding-right: 25px;
                 }
                 
-                #grid ol {
+                #grid ul {
                     padding-left: 35px;
                 }
                 
@@ -74,7 +74,7 @@ module.exports = {
                         display: block;
                     }
                 
-                    ol {
+                    ul {
                         border-right: none;
                     }
                 
