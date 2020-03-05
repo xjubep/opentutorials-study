@@ -71,7 +71,9 @@ module.exports = {
 
                 textarea {
                     width: 600px;
-                    height: 300px;
+                    height: 300px;                    
+                    border: #F0F0F0;
+                    background-color: #F0F0F0;
                 }
                 
                 form {
@@ -85,6 +87,8 @@ module.exports = {
 
                 .title {
                     width: 600px;
+                    border: #F0F0F0;
+                    background-color: #F0F0F0;
                 }
                 
                 @media(max-width: 800px) {
@@ -134,12 +138,15 @@ module.exports = {
                 var Input = {
                     setColor: function (color) {
                         $('input').css('color', color);
+                        $('textarea').css('color', color);
                     },
                     setBackgroundColor: function (color) {
                         $('input').css('backgroundColor', color);
+                        $('textarea').css('backgroundColor', color);
                     },
                     setBorderColor: function (color) {
                         $('input').css('border-color', color);
+                        $('textarea').css('border-color', color);
                     }
                 }
                 

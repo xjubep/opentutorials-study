@@ -106,7 +106,7 @@ var app = http.createServer(function (request, response) {
                     <form action="/update_process" method="post">
                         <input type="hidden" name="id" value="${title}">
                         <p>
-                            <input type="text" name="title" placeholder="title" value="${title}"></p>
+                            <input type="text" class="title" name="title" placeholder="title" value="${title}"></p>
                         <p>
                             <textarea name="description" placeholder="description" value="${description}"></textarea>
                         </p>
@@ -114,13 +114,7 @@ var app = http.createServer(function (request, response) {
                             <input type="submit">
                         </p>
                     </form>
-                    `,
-                    `
-                    <div id="control">
-                        <input type="button" class="btn" value="create" onclick="location.href='/create'";>
-                        <input type="button" class="btn" value="update" onclick="location.href='/update?id=${title}'";>
-                    </div>
-                    `
+                    `, ' '
                 );
                 response.writeHead(200);
                 response.end(html);
@@ -141,7 +135,7 @@ var app = http.createServer(function (request, response) {
             var id = post.id;
             var title = post.title;
             var description = post.description;
-
+            console.log(title);
             fs.rename(`data/${id}`, `data/${title}`, function (error) {
                 fs.writeFileSync(`data/${title}`, description, 'utf8', function (err) {
                     response.writeHead(302, { 'Location': `/?id=${title}` });
